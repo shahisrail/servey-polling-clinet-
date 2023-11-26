@@ -1,89 +1,100 @@
+
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { createContext, useEffect, useState } from "react";
 import {
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
   signOut,
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
+import { app } from "../firebase/Firebase.config";
+import UseAxiosPublic from "../Hooks/UseAxiosPublic";
 
-import axios from "axios";
-import { app } from "../Firebase/Firebase.config";
 
-export const AuthContext = createContext();
-
-const auth = getAuth(app  );
+export const AuthContext = createContext(null);
+const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = UseAxiosPublic()
 
-  const createuser = (email, password) => {
+  /* created user  */
+  const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  const signIn = (email, password) => {
+
+  /* sign in with google */
+  const googleSignin = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  /* login with email */
+
+  const loginUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  /* signOut user  */
   const logout = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-  const signinWithGoogle = () => {
-    setLoading(true);
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+  /*Update user   */
+  const userProfileUpdate = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
   };
+
+  /*  on Auth state user  */
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUSer = { email: userEmail };
-      console.log("user in the auth state change", currentUser);
       setUser(currentUser);
-      setLoading(false);
-      // // if user exist then issue a token
+      console.log("current User", currentUser);
       if (currentUser) {
-        axios
-          .post("https://assaignment-11-server-nu.vercel.app/jwt", loggedUSer, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log("token response ", res.data);
-          });
+        // get token store client side
+        const userInfo = { email: currentUser.email };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("accsess-token", res.data.token);
+            setLoading(false);
+          }
+        });
       } else {
-        axios
-          .post(
-            "https://assaignment-11-server-nu.vercel.app/logout",
-            loggedUSer,
-            {
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            console.log(res.data);
-          });
+        //TODO: remove token (if token store client side : Local storage , cashing , in memory )
+        localStorage.removeItem("accsess-token");
+        setLoading(false);
       }
+      // setLoading(false);
     });
+
     return () => {
-      unSubscribe;
+      unSubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
 
   const authInfo = {
     user,
-    createuser,
     loading,
+    createUser,
+    loginUser,
     logout,
-    signIn,
-    signinWithGoogle,
-    setUser,
+    userProfileUpdate,
+    googleSignin,
   };
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

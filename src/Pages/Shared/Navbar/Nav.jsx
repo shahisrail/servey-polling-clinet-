@@ -4,9 +4,14 @@ import { Link, NavLink } from "react-router-dom";
 // import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../AuthProvider/Provider";
-
+import UseAdmin from "../../../Hooks/UseAdmin";
+import UseServay from "../../../Hooks/UseServay";
 
 const Nav = () => {
+  const [isAdmin] = UseAdmin()
+  const [isServay] = UseServay()
+  console.log(isAdmin);
+  console.log(isServay);
   const { user, logout } = useContext(AuthContext);
   const handelSignout = () => {
     logout()
@@ -37,27 +42,36 @@ const Nav = () => {
 
   const navLinks = (
     <>
-      <li className="bg-white">
+      <li className="">
         <NavLink to="/">Home</NavLink>
       </li>
-      {
+      <li className="">
+        <NavLink to="/about">About Us</NavLink>
+      </li>
+      { isAdmin &&   (
         <li>
-          <NavLink to="/Addjob">Add job</NavLink>
+          <Link to="/dashboard/allUser">Admin  Dashboard</Link>
         </li>
-      }
+      )}
+      { isServay &&  (
+        <li>
+          <Link to="/dashboard/servayCreate"> Servay Dashboard</Link>
+        </li>
+      )}
+
       {user && (
         <li>
-          <NavLink to="/mypost">My posted</NavLink>
+          <NavLink to="/Surveys">Surveys</NavLink>
         </li>
       )}
       {user && (
         <li>
-          <NavLink to="/mybids">My Bids</NavLink>
+          <NavLink to="/SurveyDetails">Survey Details</NavLink>
         </li>
       )}
       {user && (
         <li>
-          <NavLink to="/BidRequest">Bid Requests</NavLink>
+          <NavLink to="/Pricing">Pricing</NavLink>
         </li>
       )}
       <li>
@@ -66,7 +80,7 @@ const Nav = () => {
     </>
   );
   return (
-    <div className="navbar z-10 bg-opacity-30 bg-balck text-white fixed">
+    <div className="navbar z-10 bg-opacity-30  text-black ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
