@@ -10,7 +10,7 @@ import UseAxiosHoks from "../../../Hooks/UseAxiosHoks";
 import Swal from "sweetalert2";
 
 const Servayadmin = () => {
-  const [servayAdmin, refetch] = UseSerbayDetails();
+  const [servayAdmin, loading, refetch] = UseSerbayDetails();
   const axiosSecure = UseAxiosHoks();
 
   const handlePublisetatus = async (id, status) => {
@@ -19,59 +19,61 @@ const Servayadmin = () => {
         status,
       });
       console.log(response.data);
-      refetch();
+      refetch([]);
     } catch (error) {
       console.error("Error updating status:", error);
     }
   };
-  
- const handleUnPublisetatus = async (id, status) => {
-   try {
-     const { value: enteredMessage } = await Swal.fire({
-       title: "Are you sure?",
-       input: "text",
-       inputPlaceholder: "Type your message",
-       text: "You won't be able to revert this!",
-       icon: "warning",
-       showCancelButton: true,
-       confirmButtonColor: "#3085d6",
-       cancelButtonColor: "#d33",
-       confirmButtonText: "Confirm",
-     });
 
-     if (enteredMessage) {
-       const response = await axiosSecure.put(`/servayAdmin/${id}`, {
-         status,
-         enteredMessage,
-       });
-       console.log(response.data);
-      //  refetch();
+  const handleUnPublisetatus = async (id, status) => {
+    try {
+      const { value: enteredMessage } = await Swal.fire({
+        title: "Please gave your Feedback",
+        input: "text",
+        inputPlaceholder: "Type your message",
+       
+      
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm",
+      });
 
-       Swal.fire({
-         title: "Updated!",
-         text: "Your status has been updated.",
-         icon: "success",
-       });
-     } else {
-       Swal.fire("Message is required!", "", "error");
-     }
-   } catch (error) {
-     console.error("Error updating status:", error);
-   }
- };
-
- 
+      if (enteredMessage) {
+        const response = await axiosSecure.put(`/servayAdmin/${id}`, {
+          status,
+          enteredMessage,
+        });
+        console.log(response.data);
+        refetch();
+    
+        Swal.fire({
+       
+          text: "Send Your FeedBack.",
+          icon: "success",
+        });
+      } else {
+        Swal.fire("Message is required!", "", "error");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+    console.log();
   const getStatusIcon = (status) => {
     if (status === "Published") {
-      return <VscCheck />;
+      return (
+        <div className="flex  items-center gap-3">
+          <span>Published </span>
+          <VscCheck />
+        </div>
+      );
     }
-    
   };
   const getStatusIcon2 = (status) => {
     if (status === "UnPublished") {
       return <VscChromeClose />;
     }
-    
   };
 
   return (
@@ -85,11 +87,12 @@ const Servayadmin = () => {
           <thead>
             <tr className="border">
               <th className="border">#</th>
+              <th className="border">email</th>
               <th className="border">Category</th>
               <th className="border">Titale</th>
               <th className="border">Descriptoin </th>
-              <th className="border">sataus</th>
-              <th className="border">sataus</th>
+              <th className="border">Published </th>
+              <th className="border">UnPublised</th>
             </tr>
           </thead>
 
@@ -99,11 +102,16 @@ const Servayadmin = () => {
                 <th className="border">{index + 1} </th>
                 <td className="border">
                   <div className="flex items-center gap-3">
+                    <div className="">{item.email}</div>
+                  </div>
+                </td>
+                <td className="border">
+                  <div className="flex items-center gap-3">
                     <div className="">{item.category}</div>
                   </div>
                 </td>
                 <td className="border"> {item.titale} </td>
-                <td className="border"> {item.titale} </td>
+                <td className="border"> {item.Descriptoin} </td>
                 <td className="border">
                   {item.status !== "Published" && (
                     <button

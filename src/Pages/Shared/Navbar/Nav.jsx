@@ -48,32 +48,28 @@ const Nav = () => {
       <li className="">
         <NavLink to="/about">About Us</NavLink>
       </li>
-      { isAdmin &&   (
+      {isAdmin && (
         <li>
-          <Link to="/dashboard/allUser">Admin  Dashboard</Link>
+          <Link to="/dashboard/allUser">Admin Dashboard</Link>
         </li>
       )}
-      { isServay &&  (
+      {isServay && (
         <li>
           <Link to="/dashboard/servayCreate"> Servay Dashboard</Link>
         </li>
       )}
 
-      {user && (
-        <li>
-          <NavLink to="/Surveys">Surveys</NavLink>
-        </li>
-      )}
-      {user && (
-        <li>
-          <NavLink to="/SurveyDetails">Survey Details</NavLink>
-        </li>
-      )}
-      {user && (
-        <li>
-          <NavLink to="/Pricing">Pricing</NavLink>
-        </li>
-      )}
+      <li>
+        <NavLink to="/Surveys">Surveys</NavLink>
+      </li>
+
+      <li>
+        <NavLink to="/Pricing">Pricing</NavLink>
+      </li>
+      <li>
+        <NavLink to="/Contact">Contact</NavLink>
+      </li>
+
       <li>
         <NavLink to="/login">Login</NavLink>
       </li>
@@ -132,7 +128,7 @@ const Nav = () => {
           <>
             <button
               onClick={handelSignout}
-              className="btn bg-balck fixed font-bold w-[70px] lg:w-[120px] hover:bg-[#0E204D] text-white"
+              className="btn bg-balck fixed font-bold w-[70px] lg:w-[120px] hover:bg-[#0E204D] text-white "
             >
               Sign out
             </button>

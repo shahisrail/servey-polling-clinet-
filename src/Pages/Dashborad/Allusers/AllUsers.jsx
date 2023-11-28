@@ -25,7 +25,7 @@ const AllUsers = () => {
         Swal.fire({
           icon: "success",
           title: `${user.name} is an Admin now`,
-          text: "Your file has been deleted.",
+          text: "Your file has been update.",
         });
       }
     });
@@ -38,8 +38,8 @@ const AllUsers = () => {
         refetch();
         Swal.fire({
           icon: "success",
-          title: `${user.name} is an Admin now`,
-          text: "Your file has been deleted.",
+          title: `${user.name} is an Dervay now`,
+          text: "Your file has been updated.",
         });
       }
     });
@@ -74,6 +74,7 @@ const AllUsers = () => {
       <div className="flex justify-evenly">
         <h2 className="text-3xl">All user</h2>
         <h2 className="text-3xl">Total users:{users.length}</h2>
+        <h2 className="text-3xl">Filer By categor{users.length}</h2>
       </div>
       <div className="overflow-x-auto">
         <table className="table">
@@ -83,8 +84,9 @@ const AllUsers = () => {
               <th></th>
               <th>Name</th>
               <th>Email</th>
-              <th>Role</th>
+              <th>Admin</th>
               <th>servay </th>
+              <th>prouser </th>
               <th>Actoin</th>
             </tr>
           </thead>
@@ -94,6 +96,7 @@ const AllUsers = () => {
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                
                 <td>
                   {user.role === "admin" ? (
                     "Admin"
@@ -118,6 +121,7 @@ const AllUsers = () => {
                     </button>
                   )}
                 </td>
+                <td> {user.role} </td>
                 <td>
                   <button
                     onClick={() => handelDelete(user)}

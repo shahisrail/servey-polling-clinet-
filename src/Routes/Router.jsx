@@ -7,13 +7,18 @@ import ServayCreate from "../Pages/Dashborad/ServayCreate/ServayCreate";
 import AllUsers from "../Pages/Dashborad/Allusers/AllUsers";
 import SignUp from "../Pages/Shared/Regestratoin/SignUp";
 import Surveys from "../Pages/Surveys/Surveys";
-// import SurveysDetails from "../Pages/SurveysDetails/SurveysDetails";
 import About from "../Pages/AboutUS/About";
 import Pricing from "../Pages/Pricing/Pricing";
 import Servayadmin from "../Pages/Dashborad/ServayForAdmin/Servayadmin";
 import Payment from "../Pages/Pricing/Payment";
-// import ServayRouts from "./ServayRouts";
-// import AdminRoutes from "./AdminRoute"
+import MyServay from "../Pages/Dashborad/MyServay/MyServay";
+import ServayRoutes from "./ServayRoutes";
+import AdminRoute from "./AdminRoute";
+import ServayorDetails from "../Pages/Surveys/ServayorDetails";
+import PrivateRoutes from "./PrivateRoutes";
+import PaymentHistory from "../Pages/Dashborad/PaymentHistory/PaymentHistory";
+import Conact from "../Pages/Concat/Conact";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -32,22 +37,28 @@ export const router = createBrowserRouter([
         path: "/Surveys",
         element: <Surveys></Surveys>,
       },
-      // {
-      //   path: "/SurveyDetails",
-      //   element: <SurveysDetails></SurveysDetails>,
-      // },
+      {
+        path: "/SurveyorDetails/:id",
+        element: <ServayorDetails></ServayorDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/servay/${params.id}`),
+      },
       {
         path: "/Pricing",
         element: <Pricing></Pricing>,
       },
       {
-        path: "peyment",
-        element: <Payment></Payment>,
+        path: "/Contact",
+        element: <Conact></Conact>
       },
-      // {
-      //   path: "/Surveys",
-      //   element: <Surveys></Surveys>,
-      // },
+      {
+        path: "peyment",
+        element: (
+          <PrivateRoutes>
+            <Payment></Payment>,
+          </PrivateRoutes>
+        ),
+      },
     ],
   },
   {
@@ -62,9 +73,18 @@ export const router = createBrowserRouter([
     path: "dashboard",
     element: <DashBord></DashBord>,
     children: [
+      //  servay routes
       {
         path: "servayCreate",
-        element: <ServayCreate></ServayCreate>,
+        element: (
+          <ServayRoutes>
+            <ServayCreate></ServayCreate>,
+          </ServayRoutes>
+        ),
+      },
+      {
+        path: "myservey",
+        element: <MyServay></MyServay>,
       },
 
       // admin routes
@@ -73,13 +93,27 @@ export const router = createBrowserRouter([
         element: (
           // <AdminRoutes>
 
-          <AllUsers></AllUsers>
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
         ),
         // </AdminRoutes>
       },
       {
         path: "survey",
-        element: <Servayadmin></Servayadmin>,
+        element: (
+          <AdminRoute>
+            <Servayadmin></Servayadmin>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "history",
+        element: (
+          <AdminRoute>
+            <PaymentHistory></PaymentHistory>
+          </AdminRoute>
+        ),
       },
     ],
   },

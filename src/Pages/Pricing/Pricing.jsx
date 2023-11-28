@@ -10,7 +10,7 @@ const Pricing = () => {
   // const shouldDisablePurchaseButton = () => {
   //   return; // Disable if user is admin or survey
   // };
- 
+ /* stteap check if user purchace */
   return (
     <div>
       <div
