@@ -37,12 +37,17 @@ const DashBord = () => {
               </li>
               <li className="flex items-center gap-2 ">
                 <NavLink to="/dashboard/survey">
-                 Manage survey <FaMoneyCheck></FaMoneyCheck>
+                  Manage survey <FaMoneyCheck></FaMoneyCheck>
                 </NavLink>
               </li>
               <li className="flex items-center gap-2 ">
                 <NavLink to="/dashboard/history">
-                Payment History <FaMoneyCheck></FaMoneyCheck>
+                  Payment History <FaMoneyCheck></FaMoneyCheck>
+                </NavLink>
+              </li>
+              <li className="flex items-center gap-2 ">
+                <NavLink to="/dashboard/Allresponse">
+                  ALl servay Response <FaMoneyCheck></FaMoneyCheck>
                 </NavLink>
               </li>
             </>
@@ -56,9 +61,19 @@ const DashBord = () => {
                 </NavLink>
               </li>
               <li className="flex items-center gap-2 ">
-                <NavLink to="/dashboard/myservey">
-                My Servay
-                </NavLink>
+                <NavLink to="/dashboard/myservey">My Servay</NavLink>
+              </li>
+              <li className="flex items-center gap-2 ">
+                <NavLink to="/dashboard/AdminFeadback">Admin Feadback</NavLink>
+              </li>
+              <li className="flex items-center gap-2 ">
+                <NavLink to="/dashboard/userfeedback">User feedback</NavLink>
+              </li>
+              <li className="flex items-center gap-2 ">
+                <NavLink to="/dashboard/userReport">User report</NavLink>
+              </li>
+              <li className="flex items-center gap-2 ">
+                <NavLink to="/dashboard/userResponse">User Response</NavLink>
               </li>
             </>
           )}

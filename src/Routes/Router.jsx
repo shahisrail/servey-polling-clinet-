@@ -18,6 +18,12 @@ import ServayorDetails from "../Pages/Surveys/ServayorDetails";
 import PrivateRoutes from "./PrivateRoutes";
 import PaymentHistory from "../Pages/Dashborad/PaymentHistory/PaymentHistory";
 import Conact from "../Pages/Concat/Conact";
+import UserFeadBack from "../Pages/Dashborad/UserFeadBack/UserFeadBack";
+import UserReport from "../Pages/Dashborad/USeReport/UserReport";
+import UserResponse from "../Pages/Dashborad/UserResponse/UserResponse";
+import AllServayResponse from "../Pages/Dashborad/AllServayResponse/AllServayResponse";
+import UpdateSErvay from "../Pages/Dashborad/MyServay/UpdateSErvay";
+import AdminFEadback from "../Pages/Dashborad/AdminFeadback/AdminFEadback";
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +55,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/Contact",
-        element: <Conact></Conact>
+        element: <Conact></Conact>,
       },
       {
         path: "peyment",
@@ -83,8 +89,54 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "userfeedback",
+        element: (
+          <ServayRoutes>
+            <UserFeadBack></UserFeadBack>
+          </ServayRoutes>
+        ),
+      },
+      {
+        path: "userReport",
+        element: (
+          <ServayRoutes>
+            <UserReport></UserReport>
+          </ServayRoutes>
+        ),
+      },
+      {
+        path: "userResponse",
+        element: (
+          <ServayRoutes>
+            <UserResponse></UserResponse>
+          </ServayRoutes>
+        ),
+      },
+      {
+        path: "AdminFeadback",
+        element: (
+          <ServayRoutes>
+           <AdminFEadback></AdminFEadback>
+          </ServayRoutes>
+        ),
+      },
+      {
         path: "myservey",
-        element: <MyServay></MyServay>,
+        element: (
+          <ServayRoutes>
+            <MyServay></MyServay>
+          </ServayRoutes>
+        ),
+      },
+      {
+        path: "updateServay/:id",
+        element: (
+          <ServayRoutes>
+            <UpdateSErvay></UpdateSErvay>
+          </ServayRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/myServay/${params.id}`),
       },
 
       // admin routes
@@ -112,6 +164,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <PaymentHistory></PaymentHistory>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "Allresponse",
+        element: (
+          <AdminRoute>
+            <AllServayResponse></AllServayResponse>
           </AdminRoute>
         ),
       },

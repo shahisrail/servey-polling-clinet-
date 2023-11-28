@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 
 const ServayorDetails = () => {
   const surveys = useLoaderData();
-    const { register, handleSubmit } = useForm();// Assuming this returns an array of survey objects
+    const { register, handleSubmit  } = useForm();// Assuming this returns an array of survey objects
   const axiosSecure = UseAxiosHoks();
   const { user } = UseAuth();
   const onSubmit = async (data) => {
@@ -24,6 +24,7 @@ const ServayorDetails = () => {
       name: data.name,
       comment: data.comment,
       feedback: data.feedback,
+      survayid: data.survey._id
     };
     const servayRes = await axiosSecure.post("/addComment", addComment);
     console.log(servayRes.data);
@@ -63,7 +64,6 @@ const ServayorDetails = () => {
       .catch((err) => console.log(err));
   };
 
-  // const handelSubmit = (e) => {
   //   e.preventDefault();
   //   const form = e.target;
   //   const email = 
@@ -130,7 +130,7 @@ const ServayorDetails = () => {
           </div>
 
           <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit,survey)}>
               <div className="flex gap-10">
                 <div className="form-control w-full my-6 ">
                   <label className="label">
