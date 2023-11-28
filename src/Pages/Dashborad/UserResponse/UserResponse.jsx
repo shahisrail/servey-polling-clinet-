@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
+  /* eslint-disable no-unused-vars */
+  import React from 'react';
 
-const UserResponse = () => {
-  return (
-    <div>
-      
-    </div>
-  );
-};
+  const UserResponse = () => {
+    return (
+      <div>
+        
+      </div>
+    );
+  };
 
-export default UserResponse;
+  export default UserResponse;

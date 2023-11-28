@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -8,15 +8,24 @@ import UseAxiosHoks from "../../../Hooks/UseAxiosHoks";
 
 const AllUsers = () => {
   const axiosSecure = UseAxiosHoks();
+  const [filter, setFilter] = useState("");
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?filter=${filter}`);
+      console.log(filter);
       console.log(res.data);
       return res.data;
     },
   });
-  // make admin 
+  const handelChange = (e) => {
+    setFilter(e.target.value);
+  };
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    refetch();
+  };
+  // make admin
   const handelMakeAdmin = (user) => {
     axiosSecure.patch(`users/admin/${user._id}`).then((res) => {
       console.log(res.data);
@@ -30,7 +39,7 @@ const AllUsers = () => {
       }
     });
   };
-  // make servay 
+  // make servay
   const handelMakeServey = (user) => {
     axiosSecure.patch(`users/Servey/${user._id}`).then((res) => {
       console.log(res.data);
@@ -44,7 +53,7 @@ const AllUsers = () => {
       }
     });
   };
-  // user delete 
+  // user delete
   const handelDelete = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -74,7 +83,26 @@ const AllUsers = () => {
       <div className="flex justify-evenly">
         <h2 className="text-3xl">All user</h2>
         <h2 className="text-3xl">Total users:{users.length}</h2>
-        <h2 className="text-3xl">Filer By categor{users.length}</h2>
+        <form onSubmit={handelSubmit}>
+          <label className="lavel">
+            <span>Filter by</span>
+          </label>
+          <div className="flex gap-4">
+            <select
+              onChange={handelChange}
+              className="select flex-1 select-border"
+              defaultValue={filter}
+            >
+              <option value="">All</option>
+              <option value="Pro User">pro User </option>
+              <option value="Servey">Serveyor</option>
+              <option value="admin">admin</option>
+            </select>
+            <button className="" type="submit">
+              filter
+            </button>
+          </div>
+        </form>
       </div>
       <div className="overflow-x-auto">
         <table className="table">
@@ -96,7 +124,7 @@ const AllUsers = () => {
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                
+
                 <td>
                   {user.role === "admin" ? (
                     "Admin"

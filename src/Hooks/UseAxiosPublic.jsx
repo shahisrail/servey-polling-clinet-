@@ -1,14 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
-
-
+import React from "react";
 
 const axiosPublic = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://assaignment-12-server-seven.vercel.app",
 });
 const UseAxiosPublic = () => {
-  return axiosPublic
+  return axiosPublic;
 };
 
 export default UseAxiosPublic;

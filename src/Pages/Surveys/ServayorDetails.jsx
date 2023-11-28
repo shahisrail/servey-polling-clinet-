@@ -8,13 +8,14 @@ import UseAxiosHoks from "../../Hooks/UseAxiosHoks";
 import UseAuth from "../../Hooks/UseAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import ServayorComment from "./ServayorComment";
 
 const ServayorDetails = () => {
   const surveys = useLoaderData();
-    const { register, handleSubmit  } = useForm();// Assuming this returns an array of survey objects
+  const { register, handleSubmit } = useForm(); // Assuming this returns an array of survey objects
   const axiosSecure = UseAxiosHoks();
   const { user } = UseAuth();
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, surveyId) => {
     console.log(data);
 
     //  now send the servay   data to the server
@@ -22,11 +23,15 @@ const ServayorDetails = () => {
     const addComment = {
       email: data.email,
       name: data.name,
-      comment: data.comment,
-      feedback: data.feedback,
-      survayid: data.survey._id
+      question: data.question,
+      report: data.report,
+      surveyId: data.surveyId,
     };
     const servayRes = await axiosSecure.post("/addComment", addComment);
+    //  const servayRes = await axiosSecure.post(
+    //    `/addComment/${surveyId}`,
+    //    addComment
+    //  );
     console.log(servayRes.data);
     if (servayRes.data.insertedId) {
       // show  success popup
@@ -34,7 +39,7 @@ const ServayorDetails = () => {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: 'your vote is submited',
+        title: "your vote is submited",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -66,14 +71,12 @@ const ServayorDetails = () => {
 
   //   e.preventDefault();
   //   const form = e.target;
-  //   const email = 
+  //   const email =
   //   const name = user.displayName;
   //   const comment = form.comment;
   //   const fromData = { email, comment, name };
   //   console.log(fromData);
   // };
-
-
 
   return (
     <div>
@@ -89,13 +92,13 @@ const ServayorDetails = () => {
             Titale: {survey.titale}
           </p>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-           Decriptoin: {survey.Descriptoin}
+            Decriptoin: {survey.Descriptoin}
           </p>
           <div className="flex justify-center flex-row gap-10">
             <div className="badge">
               <button
                 className="w-full h-full flex justify-center items-center py-5 text-2"
-                onClick={() => handleLike(survey._id, survey.like)}
+                onClick={() => handleLike(survey._id,survey.like)}
               >
                 <AiFillLike className="text-2xl text-blue-700"> </AiFillLike>
                 {survey.like + 0}
@@ -112,9 +115,7 @@ const ServayorDetails = () => {
               </button>
             </div>
 
-         
             <div>
-              
               <input
                 type="radio"
                 name="radio-5"
@@ -130,8 +131,14 @@ const ServayorDetails = () => {
           </div>
 
           <div>
-            <form onSubmit={handleSubmit(onSubmit,survey)}>
+            <form onSubmit={handleSubmit(onSubmit, survey)}>
               <div className="flex gap-10">
+                <input
+                  type="hidden"
+                  value={survey._id}
+                  {...register("surveyId")}
+                />
+
                 <div className="form-control w-full my-6 ">
                   <label className="label">
                     <span className="label-text">User Email</span>
@@ -147,7 +154,7 @@ const ServayorDetails = () => {
                 </div>
                 <div className="form-control w-full my-6 ">
                   <label className="label">
-                    <span className="label-text">User Email</span>
+                    <span className="label-text">User Name</span>
                   </label>
                   <input
                     type="text"
@@ -162,13 +169,21 @@ const ServayorDetails = () => {
               <div className="flex gap-10">
                 <div className="form-control w-full my-6 ">
                   <label className="label">
-                    <span className="label-text">User FedBack</span>
+                    <span className="label-text">question</span>
                   </label>
                   <input
-                    type="text"
-                    placeholder="User feddBack"
-                    {...register("feedback", { required: true })}
-                    className="input input-bordered w-full "
+                    type="radio"
+                    name="radio-5"
+                    value="yes"
+                    className="radio radio-success"
+                    checked
+                    {...register("question", { required: true })}
+                  />
+                  <input
+                    type="radio"
+                    name="radio-5"
+                    value="no"
+                    className="radio radio-success"  
                   />
                 </div>
                 <div className="form-control w-full my-6 ">
@@ -202,6 +217,9 @@ const ServayorDetails = () => {
           </div>
         </div>
       ))}
+      <div>
+        <ServayorComment></ServayorComment>
+      </div>
     </div>
   );
 };

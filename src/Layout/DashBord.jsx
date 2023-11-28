@@ -15,7 +15,11 @@ const DashBord = () => {
         <ul className="menu p-4 ">
           {isAdmin && (
             <>
-              <li className="flex items-center gap-2 ">
+              <h2 className="text-3xl text-center">
+                Admin <br />
+                <span className="text-[20px]">D a s h b o a r  d</span>
+              </h2>
+              <li className="flex items-center gap-2 mt-10">
                 <NavLink to="/dashboard/adminHome">
                   Admin Home<FaHome></FaHome>
                 </NavLink>
@@ -55,7 +59,12 @@ const DashBord = () => {
 
           {isServey && (
             <>
-              <li className="flex items-center gap-2 ">
+              <h2 className="text-3xl text-center">
+                Surveyor <br />
+                <span className="text-[20px]">D a s h b o a r d</span>
+              </h2>
+
+              <li className="flex items-center gap-2 mt-10">
                 <NavLink to="/dashboard/servayCreate">
                   Survey Creation �<FaPen></FaPen>
                 </NavLink>

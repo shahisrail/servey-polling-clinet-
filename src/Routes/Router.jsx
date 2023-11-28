@@ -47,7 +47,9 @@ export const router = createBrowserRouter([
         path: "/SurveyorDetails/:id",
         element: <ServayorDetails></ServayorDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/servay/${params.id}`),
+          fetch(
+            `https://assaignment-12-server-seven.vercel.app/servay/${params.id}`
+          ),
       },
       {
         path: "/Pricing",
@@ -116,7 +118,7 @@ export const router = createBrowserRouter([
         path: "AdminFeadback",
         element: (
           <ServayRoutes>
-           <AdminFEadback></AdminFEadback>
+            <AdminFEadback></AdminFEadback>
           </ServayRoutes>
         ),
       },
@@ -136,7 +138,9 @@ export const router = createBrowserRouter([
           </ServayRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/myServay/${params.id}`),
+          fetch(
+            `https://assaignment-12-server-seven.vercel.app/myServay/${params.id}`
+          ),
       },
 
       // admin routes

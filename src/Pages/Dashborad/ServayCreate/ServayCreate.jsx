@@ -20,6 +20,7 @@ const ServayCreate = () => {
       titale: data.titale,
       Descriptoin: data.Descriptoin,
       Dedline: data.Dedline,
+      qutoin: data.qutoin,
     };
     const servayRes = await axiosSecure.post("/servay", servayIteam);
     console.log(servayRes.data);
@@ -49,6 +50,17 @@ const ServayCreate = () => {
               readOnly
               placeholder="User Email"
               {...register("email", { required: true })}
+              className="input input-bordered w-full "
+            />
+          </div>
+          <div className="form-control w-full ">
+            <label className="label">
+              <span className="label-text">question</span>
+            </label>
+            <input
+              type="text"
+              placeholder="question"
+              {...register("qutoin", { required: true })}
               className="input input-bordered w-full "
             />
           </div>
@@ -112,7 +124,7 @@ const ServayCreate = () => {
           </div>
 
           <button type="submit" className="btn mt-5">
-            Add item
+            Survey add
           </button>
         </form>
       </div>
