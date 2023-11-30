@@ -14,6 +14,7 @@ const ServayorComment = () => {
     const { user } = UseAuth();
     const onSubmit = async (data) => {
       console.log(data);
+      const currentTime = Date.now()
 
       //  now send the servay   data to the server
 
@@ -22,6 +23,7 @@ const ServayorComment = () => {
         name: data.name,
         surveyId: data.surveyId,
         comment: data.comment,
+        time:currentTime
       };
       const servayRes = await axiosSecure.post("/addComments", addComments);
       //  const servayRes = await axiosSecure.post(

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { FaVoteYea } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
@@ -9,13 +9,16 @@ import UseAuth from "../../Hooks/UseAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import ServayorComment from "./ServayorComment";
+import axios from "axios";
 
 const ServayorDetails = () => {
+  const { user } = UseAuth();
+
   const surveys = useLoaderData();
   const { register, handleSubmit } = useForm(); // Assuming this returns an array of survey objects
   const axiosSecure = UseAxiosHoks();
-  const { user } = UseAuth();
-  const onSubmit = async (data, surveyId) => {
+
+  const onSubmit = async (data) => {
     console.log(data);
 
     //  now send the servay   data to the server
@@ -27,7 +30,11 @@ const ServayorDetails = () => {
       report: data.report,
       surveyId: data.surveyId,
     };
-    const servayRes = await axiosSecure.post("/addComment", addComment);
+    const servayRes = await axiosSecure.post(
+      `/addComment?id=${data.surveyId}`,
+      addComment
+    );
+    console.log(data.surveyId);
     //  const servayRes = await axiosSecure.post(
     //    `/addComment/${surveyId}`,
     //    addComment
@@ -78,6 +85,34 @@ const ServayorDetails = () => {
   //   console.log(fromData);
   // };
 
+  /* pollColectoin data  fething  user email macth  */
+
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      // setLoading(true);
+      const servayGetid = localStorage.getItem("servaySetid");
+      console.log(servayGetid);
+      try {
+        const resData = await axios.get(
+          `http://localhost:5000/user-data?email=${user.email}`
+        );
+        console.log(resData);
+
+        const userListBoolean = resData?.data?.some(
+          (i) => i?.surveyId === servayGetid
+        );
+        console.log("userListBoolean", userListBoolean);
+
+        // const conditoin = userListBoolean;
+
+        localStorage.setItem("servay", userListBoolean);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUsersData();
+  }, []);
+  const getID = localStorage.getItem("servay");
   return (
     <div>
       {surveys.map((survey) => (
@@ -98,7 +133,7 @@ const ServayorDetails = () => {
             <div className="badge">
               <button
                 className="w-full h-full flex justify-center items-center py-5 text-2"
-                onClick={() => handleLike(survey._id,survey.like)}
+                onClick={() => handleLike(survey._id, survey.like)}
               >
                 <AiFillLike className="text-2xl text-blue-700"> </AiFillLike>
                 {survey.like + 0}
@@ -115,18 +150,9 @@ const ServayorDetails = () => {
               </button>
             </div>
 
-            <div>
-              <input
-                type="radio"
-                name="radio-5"
-                className="radio radio-success"
-                checked
-              />
-              <input
-                type="radio"
-                name="radio-5"
-                className="radio radio-success"
-              />
+            <div className="flex">
+              {" "}
+              <FaVoteYea className="text-2xl "></FaVoteYea> {survey.yesVoted}
             </div>
           </div>
 
@@ -169,7 +195,9 @@ const ServayorDetails = () => {
               <div className="flex gap-10">
                 <div className="form-control w-full my-6 ">
                   <label className="label">
-                    <span className="label-text">question</span>
+                    <span className="label-text">
+                      question {survey.qutoin}{" "}
+                    </span>
                   </label>
                   <input
                     type="radio"
@@ -183,7 +211,8 @@ const ServayorDetails = () => {
                     type="radio"
                     name="radio-5"
                     value="no"
-                    className="radio radio-success"  
+                    className="radio radio-success"
+                    {...register("question", { required: true })}
                   />
                 </div>
                 <div className="form-control w-full my-6 ">
@@ -198,26 +227,22 @@ const ServayorDetails = () => {
                   />
                 </div>
               </div>
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">comment</span>
-                </label>
-                <textarea
-                  type="text"
-                  placeholder="comment"
-                  {...register("comment", { required: true })}
-                  className="textarea textarea-bordered h-24"
-                />
-              </div>
 
-              <button type="submit" className="btn mt-5">
-                Submit comment
-              </button>
+              {getID === "true" ? (
+                <button type="submit" className="btn mt-5" disabled>
+                  You have already voted
+                </button>
+              ) : (
+                <button type="submit" className="btn mt-5">
+                  Submit your poll
+                </button>
+              )}
             </form>
           </div>
         </div>
       ))}
-      <div>
+
+      <div className="mt-5">
         <ServayorComment></ServayorComment>
       </div>
     </div>

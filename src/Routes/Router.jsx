@@ -24,6 +24,8 @@ import UserResponse from "../Pages/Dashborad/UserResponse/UserResponse";
 import AllServayResponse from "../Pages/Dashborad/AllServayResponse/AllServayResponse";
 import UpdateSErvay from "../Pages/Dashborad/MyServay/UpdateSErvay";
 import AdminFEadback from "../Pages/Dashborad/AdminFeadback/AdminFEadback";
+import UserProfile from "../Layout/UserProfile/UserProfile";
+import Response from "../Pages/Dashborad/AllServayResponse/Response";
 
 export const router = createBrowserRouter([
   {
@@ -47,9 +49,7 @@ export const router = createBrowserRouter([
         path: "/SurveyorDetails/:id",
         element: <ServayorDetails></ServayorDetails>,
         loader: ({ params }) =>
-          fetch(
-            `https://assaignment-12-server-seven.vercel.app/servay/${params.id}`
-          ),
+          fetch(`http://localhost:5000/servay/${params.id}`),
       },
       {
         path: "/Pricing",
@@ -91,6 +91,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "profile",
+        element: <UserProfile></UserProfile>,
+      },
+      {
         path: "userfeedback",
         element: (
           <ServayRoutes>
@@ -113,6 +117,11 @@ export const router = createBrowserRouter([
             <UserResponse></UserResponse>
           </ServayRoutes>
         ),
+      },
+      {
+        path: "dashbord/response/:id",
+        element: <Response></Response>,
+       
       },
       {
         path: "AdminFeadback",
@@ -138,9 +147,7 @@ export const router = createBrowserRouter([
           </ServayRoutes>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://assaignment-12-server-seven.vercel.app/myServay/${params.id}`
-          ),
+          fetch(`http://localhost:5000/myServay/${params.id}`),
       },
 
       // admin routes

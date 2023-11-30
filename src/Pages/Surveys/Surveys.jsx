@@ -2,12 +2,13 @@
 import React, { useState } from "react";
 
 import { AiFillDislike, AiFillLike, AiTwotoneLike } from "react-icons/ai";
-import { FaVoteYea } from "react-icons/fa";
+import { FaSearch, FaVoteYea } from "react-icons/fa";
 
 import UseServayIteams from "../../Hooks/UseServayIteams";
 import { Link } from "react-router-dom";
 
 const Surveys = () => {
+  
   const [servay] = UseServayIteams();
   const [serch, setSerche] = useState("");
   const handelOnchange = (e) => {
@@ -16,15 +17,22 @@ const Surveys = () => {
     const output = formData.toLowerCase();
     setSerche(output);
   };
+  const handelChekServayId = (_id) => {
+    localStorage.setItem('servaySetid',_id)
+  }
   console.log(serch);
   return (
     <div>
-      <div className=" ">
-        <h2>length:{servay.length}</h2>
+      <div className="mx-auto text-center mb-10">
+        <form onChange={handelOnchange}>
+          <input
+            className="border w-[300px] p-2 text-center"
+            placeholder="filter titale and category"
+            type="text"
+            name="serch"
+          />
+        </form>
       </div>
-      <form onChange={handelOnchange}>
-        <input className="border" type="text" name="serch" />
-      </form>
       <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto gap-5">
         {servay
           .filter((surveyFilter) => {
@@ -75,7 +83,10 @@ const Surveys = () => {
                     {yesVoted}
                   </div>
                 </div>
-                <Link to={`/SurveyorDetails/${_id}`}>
+                <Link
+                  onClick={()=> handelChekServayId(_id)}
+                  to={`/SurveyorDetails/${_id}`}
+                >
                   {/* <Link to={`/SurveyorDetails/_id}`}> */}
                   <button className="btn w-full mt-5">Servay Details</button>
                 </Link>

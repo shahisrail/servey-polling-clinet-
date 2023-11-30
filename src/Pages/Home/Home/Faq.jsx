@@ -4,7 +4,8 @@ import React from "react";
 const Faq = () => {
   return (
     <div className="mt-5">
-      <div className="collapse collapse-plus bg-base-200 mb-5">
+      <h1 className="text-center mt-5 text-5xl">FAQ❓� </h1>
+      <div className="collapse mt-5 collapse-plus bg-base-200 mb-5">
         <input type="radio" name="my-accordion-3" />
         <div className="collapse-title text-xl font-medium">
           In what ways can I use surveys for effective data collection?

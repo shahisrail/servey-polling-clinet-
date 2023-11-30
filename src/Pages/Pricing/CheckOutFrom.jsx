@@ -96,37 +96,40 @@ const CheckOutFrom = () => {
   //  console.log("Your tranjectoin id",{tranjectoin.id});
 
   return (
-    <form onSubmit={handelSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+    <div className="w-1/2  mx-auto card border p-5 bg-inherit">
+       <h2 className="text-center text-2xl"> Please pay your bile</h2>
+      <form onSubmit={handelSubmit}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <button
-        className="btn btn-sm btn-primary my-4"
-        type="submit"
-        disabled={!stripe || !clientSecret}
-      >
-        Pay
-      </button>
-      <p className="text-red-500 text-2xl"> {error} </p>
+          }}
+        />
+        <button
+          className="btn btn-sm btn-primary my-4"
+          type="submit"
+          disabled={!stripe || !clientSecret}
+        >
+          Pay
+        </button>
+        <p className="text-red-500 text-2xl"> {error} </p>
 
-      <p className="text-red-600"> {error} </p>
-      {tranjectoin && (
-        <p className="text-green-600">Your tranjectoin id {tranjectoin} </p>
-      )}
-    </form>
+        <p className="text-red-600"> {error} </p>
+        {tranjectoin && (
+          <p className="text-green-600">Your tranjectoin id {tranjectoin} </p>
+        )}
+      </form>
+    </div>
   );
 };
 

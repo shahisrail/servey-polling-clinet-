@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/Provider";
 
 const axiosSecure = axios.create({
-  baseURL: "https://assaignment-12-server-seven.vercel.app",
+  baseURL: "http://localhost:5000"
 });
 const UseAxiosHoks = () => {
   const navigate = useNavigate();

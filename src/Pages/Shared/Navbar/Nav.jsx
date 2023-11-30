@@ -76,7 +76,7 @@ const Nav = () => {
     </>
   );
   return (
-    <div className="navbar z-10 bg-opacity-30  text-black ">
+    <div className="navbar  bg-opacity-30  text-black ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -128,7 +128,7 @@ const Nav = () => {
           <>
             <button
               onClick={handelSignout}
-              className="btn bg-balck fixed font-bold w-[70px] lg:w-[120px] hover:bg-[#0E204D] text-white "
+              className="btn bg-balck  font-bold w-[70px] lg:w-[120px] hover:bg-[#0E204D] text-white "
             >
               Sign out
             </button>
