@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-const Foter = () => {
+const Servayoranalaytic = () => {
   return (
     <div>
-      <h3>asd</h3>
+      
     </div>
   );
 };
 
-export default Foter;
-
-
+export default Servayoranalaytic;

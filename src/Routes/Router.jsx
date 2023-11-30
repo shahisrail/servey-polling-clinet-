@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
@@ -21,12 +22,15 @@ import Conact from "../Pages/Concat/Conact";
 import UserFeadBack from "../Pages/Dashborad/UserFeadBack/UserFeadBack";
 import UserReport from "../Pages/Dashborad/USeReport/UserReport";
 import UserResponse from "../Pages/Dashborad/UserResponse/UserResponse";
+
 import AllServayResponse from "../Pages/Dashborad/AllServayResponse/AllServayResponse";
 import UpdateSErvay from "../Pages/Dashborad/MyServay/UpdateSErvay";
 import AdminFEadback from "../Pages/Dashborad/AdminFeadback/AdminFEadback";
 import UserProfile from "../Layout/UserProfile/UserProfile";
 import Response from "../Pages/Dashborad/AllServayResponse/Response";
-
+import ServeyResponse from "../Pages/Dashborad/UserResponse/serveyResponse";
+import Servayoranalaytic from "../Pages/Dashborad/ServeyorAnalitic/Servayoralaytic";
+import AdminAnalyticks from "../Pages/Dashborad/AdminAnlyTics/AdminAnalyticks";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -103,6 +107,15 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "serveyoranalytic",
+        element: (
+          <ServayRoutes>
+            <Servayoranalaytic></Servayoranalaytic>
+          </ServayRoutes>
+        ),
+      },
+
+      {
         path: "userReport",
         element: (
           <ServayRoutes>
@@ -118,11 +131,7 @@ export const router = createBrowserRouter([
           </ServayRoutes>
         ),
       },
-      {
-        path: "dashbord/response/:id",
-        element: <Response></Response>,
-       
-      },
+
       {
         path: "AdminFeadback",
         element: (
@@ -138,6 +147,10 @@ export const router = createBrowserRouter([
             <MyServay></MyServay>
           </ServayRoutes>
         ),
+      },
+      {
+        path: "ServayUserResponse/:id",
+        element: <ServeyResponse></ServeyResponse>,
       },
       {
         path: "updateServay/:id",
@@ -183,6 +196,22 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllServayResponse></AllServayResponse>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "response/:id",
+        element: (
+          <AdminRoute>
+            <Response></Response>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "Adminanalytic",
+        element: (
+          <AdminRoute>
+            <AdminAnalyticks></AdminAnalyticks>
           </AdminRoute>
         ),
       },

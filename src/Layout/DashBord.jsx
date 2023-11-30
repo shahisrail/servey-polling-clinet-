@@ -9,6 +9,7 @@ import { TbLogout } from "react-icons/tb";
 import { MdRateReview, MdReviews } from "react-icons/md";
 import Swal from "sweetalert2";
 import UseAuth from "../Hooks/UseAuth";
+import { SiSimpleanalytics } from "react-icons/si";
 
 const DashBord = () => {
   const [isAdmin] = UseAdmin()
@@ -75,6 +76,12 @@ const DashBord = () => {
                   ALl servay Response <FaMoneyCheck></FaMoneyCheck>
                 </NavLink>
               </li>
+              <li className="flex items-center gap-2 ">
+                <NavLink to="/dashboard/Adminanalytic">
+                  Analyticks
+                  <SiSimpleanalytics></SiSimpleanalytics>
+                </NavLink>
+              </li>
             </>
           )}
 
@@ -107,6 +114,12 @@ const DashBord = () => {
               </li>
               <li className="flex items-center gap-2 ">
                 <NavLink to="/dashboard/userResponse">User Response</NavLink>
+              </li>
+              <li className="flex items-center gap-2 ">
+                <NavLink to="/dashboard/serveyoranalytic">
+                  Analyticks
+                  <SiSimpleanalytics></SiSimpleanalytics>
+                </NavLink>
               </li>
             </>
           )}

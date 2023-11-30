@@ -106,7 +106,7 @@ const AllServayResponse = () => {
                 <td className="border"> {item.titale} </td>
                 <td className="border"> {item.Descriptoin} </td>
                 <td className="border">
-                  <Link to={`/response/${item._id}`}>
+                  <Link to={`/dashboard/response/${item._id}`}>
                     <button> Show response</button>
                   </Link>
                 </td>
