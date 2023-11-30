@@ -105,7 +105,7 @@ const ServayorDetails = () => {
 
   /* loaded comment datqa  */
   useEffect(() => {
-    fetch("http://localhost:5000/commentdata")
+    fetch("https://assaignment-12-server-seven.vercel.app/commentdata")
       .then((res) => res.json())
       .then((data) => setComment(data));
   }, []);
