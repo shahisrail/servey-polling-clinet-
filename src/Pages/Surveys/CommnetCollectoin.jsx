@@ -8,6 +8,7 @@ const CommnetCollectoin = ({ data }) => {
   // eslint-disable-next-line react/prop-types, no-unused-vars
   const { email, name, comment } = data;
   const { user } = UseAuth();
+  
   return (
     <div className="flex items-center gap-2 my-2 ">
       <div className="avatar">

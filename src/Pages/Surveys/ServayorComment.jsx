@@ -9,6 +9,7 @@ import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import UseAdmin from "../../Hooks/UseAdmin";
 import UseServay from "../../Hooks/UseServay";
 import { useQuery } from "@tanstack/react-query";
+import UseproUser from "../../Hooks/UseproUser";
 
 const ServayorComment = () => {
   const surveys = useLoaderData();
@@ -24,7 +25,7 @@ const ServayorComment = () => {
   const { register, handleSubmit } = useForm();
   const [isAdmin] = UseAdmin();
   const [isServay] = UseServay();
-  const isProUser = false
+  const [isProUser] = UseproUser()
   // Assuming this returns an array of survey objects
   const axiosSecure = UseAxiosHoks();
   const { user } = UseAuth();

@@ -16,21 +16,23 @@ import UseServay from "../../Hooks/UseServay";
 
 const ServayorDetails = () => {
   const { user } = UseAuth();
-  const [isAdmin] = UseAdmin()
-   const [isServayor] = UseServay()
+  const [isAdmin] = UseAdmin();
+  const [isServayor] = UseServay();
   const surveys = useLoaderData();
   const { register, handleSubmit } = useForm();
   // Assuming this returns an array of survey objects
   const axiosSecure = UseAxiosHoks();
 
   const [comment, setComment] = useState([]);
-    const isExpired = (expirationDate) => {
-      const currentDate = new Date();
-      const expDate = new Date(expirationDate);
+  const [getID, setGetID] = useState(false);
 
-      return currentDate > expDate;
-    };
-  
+  const isExpired = (expirationDate) => {
+    const currentDate = new Date();
+    const expDate = new Date(expirationDate);
+
+    return currentDate > expDate;
+  };
+
   const onSubmit = async (data) => {
     console.log(data);
 
@@ -47,63 +49,59 @@ const ServayorDetails = () => {
       `/addComment?id=${data.surveyId}`,
       addComment
     );
-    console.log(data.surveyId);
-    //  const servayRes = await axiosSecure.post(
-    //    `/addComment/${surveyId}`,
-    //    addComment
-    //  );
-    console.log(servayRes.data);
+
     if (servayRes.data.insertedId) {
-      // show  success popup
-      // reset();
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: "your vote is submited",
+        title: "Your vote is submitted",
         showConfirmButton: false,
         timer: 1500,
       });
+
+      localStorage.setItem("survey_id", data.surveyId);
+      setGetID(true);
     }
   };
 
-   const handleLike = (_id, currentLikeCount) => {
-     const existingLike = localStorage.getItem(`like_${_id}`) || "false";
+  const handleLike = (_id, currentLikeCount) => {
+    const existingLike = localStorage.getItem(`like_${_id}`) || "false";
 
-     if (existingLike === "true") {
-       // If 'like' value is true in localStorage, do not increment the count
-       return;
-     }
+    if (existingLike === "true") {
+      // If 'like' value is true in localStorage, do not increment the count
+      return;
+    }
 
-     const updatedLikeCount = currentLikeCount + 1;
+    const updatedLikeCount = currentLikeCount + 1;
 
-     localStorage.setItem(`like_${_id}`, "true");
+    localStorage.setItem(`like_${_id}`, "true");
 
-     axiosSecure
-       .patch(`/allSurvey/like/${_id}`, { like: updatedLikeCount })
-       .then((res) => {
-         console.log(res);
-       })
-       .catch((err) => console.log(err));
-   };
- const handleDislike = (_id, currentDislikeCount) => {
-   const existingDislike = localStorage.getItem(`dislike_${_id}`) || "false";
+    axiosSecure
+      .patch(`/allSurvey/like/${_id}`, { like: updatedLikeCount })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+  const handleDislike = (_id, currentDislikeCount) => {
+    const existingDislike = localStorage.getItem(`dislike_${_id}`) || "false";
 
-   if (existingDislike === "true") {
-     // If 'dislike' value is true in localStorage, do not increment the count
-     return;
-   }
+    if (existingDislike === "true") {
+      // If 'dislike' value is true in localStorage, do not increment the count
+      return;
+    }
 
-   const updatedDislikeCount = currentDislikeCount + 1;
+    const updatedDislikeCount = currentDislikeCount + 1;
 
-   localStorage.setItem(`dislike_${_id}`, "true");
+    localStorage.setItem(`dislike_${_id}`, "true");
 
-   axiosSecure
-     .patch(`/allSurvey/dislike/${_id}`, { dislike: updatedDislikeCount })
-     .then((res) => {
-       console.log(res);
-     })
-     .catch((err) => console.log(err));
- };
+    axiosSecure
+      .patch(`/allSurvey/dislike/${_id}`, { dislike: updatedDislikeCount })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
 
   /* loaded comment datqa  */
   useEffect(() => {
@@ -114,34 +112,6 @@ const ServayorDetails = () => {
   console.log(comment);
   /* pollColectoin data  fething  user email macth  */
 
-  useEffect(() => {
-    const fetchUsersData = async () => {
-      // setLoading(true);
-      const servayGetid = localStorage.getItem("servaySetid");
-      console.log(servayGetid);
-      try {
-        const resData = await axios.get(
-          `http://localhost:5000/user-data?email=${user.email}`
-        );
-        console.log(resData);
-
-        const userListBoolean = resData?.data?.some(
-          (i) => i?.surveyId === servayGetid
-        );
-        console.log("userListBoolean", userListBoolean);
-
-        // const conditoin = userListBoolean;
-
-        localStorage.setItem("servay", userListBoolean);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchUsersData();
-  }, []);
-  const getID = localStorage.getItem("servay");
-  // const commentFilter = comment.filter((data) => data.surveyId === survey._id);
-  // console.log(commentFilter);
   return (
     <div>
       <div>
@@ -268,7 +238,7 @@ const ServayorDetails = () => {
                   </div>
                 </div>
 
-                {getID === "true" ? (
+                {getID ? (
                   <button type="submit" className="btn mt-5" disabled>
                     You have already voted
                   </button>
