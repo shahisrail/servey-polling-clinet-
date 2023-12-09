@@ -67,8 +67,4 @@ Set your MongoDB URI, database name, username, and password in index.js.
 ## website link : https://assaignment-12-605fa.web.app/
 ## This server side code link: https://github.com/shahisrail/servey-polling-server
 
-This server side code link: https://github.com/shahisrail/job-market-server
 
-
-
-## website link : https://assaignment-12-605fa.web.app/
