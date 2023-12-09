@@ -44,6 +44,19 @@ react-router-dom and use mongoDB data vase and express cors node js.
 ### login and registratoin  authionticatoin 
 ## steap-10
 ### jwt elplement set a token in local Storage 
+
+# System Technologies Used:
+## Frontend Technologies:
+### React: Leveraged for building the dynamic and responsive user interface.
+### JavaScript: Utilized for implementing interactive functionalities and logic.
+### Tailwind CSS: Employed for crafting the UI components and styling.
+
+## Backend Technologies:
+###  Node.js: Used as the runtime environment for executing JavaScript server-side.
+### Express.js: Framework employed for developing the backend server to handle requests and responses.
+### MongoDB: Chosen as the database system for efficient data management.
+
+
 ## Frontend:
 
 ## steap-1
