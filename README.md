@@ -61,7 +61,7 @@ Install required dependencies by running npm i in the terminal
 ## steap-6
 ### Install necessary dependencies with npm i.
 ## steap-7
-Set your MongoDB URI, database name, username, and password in index.js.
+### Set your MongoDB URI, database name, username, and password in index.js.
 ## steap-8
 ### Run the server using nodemon index.js in the terminal.
 ## website link : https://assaignment-12-605fa.web.app/
