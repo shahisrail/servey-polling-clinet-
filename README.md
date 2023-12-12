@@ -8,7 +8,7 @@ react-router-dom and use mongoDB data vase and express cors node js.
 
 ## steap -1
 
-###You've created a home page with a navigation bar hero sectoin how it works sectoin  user reviiw testiminal and faq sectoin 
+### You've created a home page with a navigation bar hero sectoin how it works sectoin  user reviiw testiminal and faq sectoin 
 
 
 ## steap - 2
@@ -35,17 +35,53 @@ react-router-dom and use mongoDB data vase and express cors node js.
 ### admin can be all servayor post published or unpublised 
 
 
-## steap-7
+## steap-8
 
 ### when user role servay than show a dashborad his all post and status and she update his post
 
-## steap-8
+## steap-9
 
 ### login and registratoin  authionticatoin 
-## steap-9
+## steap-10
 ### jwt elplement set a token in local Storage 
 
+# System Technologies Used:
+## Frontend Technologies:
+### React: Leveraged for building the dynamic and responsive user interface.
+### JavaScript: Utilized for implementing interactive functionalities and logic.
+### Tailwind CSS: Employed for crafting the UI components and styling.
+
+## Backend Technologies:
+###  Node.js: Used as the runtime environment for executing JavaScript server-side.
+### Express.js: Framework employed for developing the backend server to handle requests and responses.
+### MongoDB: Chosen as the database system for efficient data management.
 
 
+## Frontend:
 
+## steap-1
+### Clone this repository and open your code editor.
+## steap-2
+Install required dependencies by running npm i in the terminal
+## steap-3
+### Set your Firebase authentication variables.
+## steap-4
+### Run the project using npm run dev and open the localhost.
+
+## Backend
+## steap-5
+### Clone the server-side repository and open your code editor.
+## steap-6
+### Install necessary dependencies with npm i.
+## steap-7
+### Set your MongoDB URI, database name, username, and password in index.js.
+## steap-8
+### Run the server using nodemon index.js in the terminal.
+## website link : https://assaignment-12-605fa.web.app/
+## This server side code link: https://github.com/shahisrail/servey-polling-server
+
+
+<<<<<<< HEAD
 ## website link :https://assaignment-12-605fa.firebaseapp.com/
+=======
+>>>>>>> 866ebd85e4511c6e9243c21efed5f84b32cef8db
