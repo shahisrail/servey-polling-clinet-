@@ -127,7 +127,7 @@ const ServayorComment = () => {
                 </button>
               ) : isProUser ? (
                 <button type="submit" className="btn mt-5">
-                  Submit your poll
+                  Submit your comment
                 </button>
               ) : (
                 <button type="button" className="btn mt-5" disabled>

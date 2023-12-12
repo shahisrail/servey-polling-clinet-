@@ -70,7 +70,7 @@ const AllUsers = () => {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "This user  has been deleted.",
               icon: "success",
             });
           }
@@ -94,7 +94,7 @@ const AllUsers = () => {
               defaultValue={filter}
             >
               <option value="">All</option>
-              <option value="Pro User">pro User </option>
+              <option value="ProUser">pro User </option>
               <option value="Servey">Serveyor</option>
               <option value="admin">admin</option>
             </select>
